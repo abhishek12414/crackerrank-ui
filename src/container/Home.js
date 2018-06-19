@@ -54,7 +54,7 @@ class Home extends React.Component{
                 <Menu/>
                 <div className="skills">
                 <PageTitle title="Dashboard"/>
-                    <h2>Explore CrackerRank Skill</h2>
+                    <h2>Explore Your Skill</h2>
                     <div className="LangGrid">
                         {codingCategory}
                     </div>
