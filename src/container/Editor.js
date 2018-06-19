@@ -67,8 +67,4 @@ Write a program that prints a staircase of size n.`,
     }
 }
 
-<<<<<<< HEAD
 export default Editor;
-=======
-export default Editor;
->>>>>>> 715f6c88e92b39550d978ca758af0a0a156a3b8f
