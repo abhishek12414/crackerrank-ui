@@ -4,17 +4,19 @@ import Login from './container/Login';
 import {BrowserRouter as Router } from 'react-router-dom';
 import Route from 'react-router-dom/Route';
 import Home from './container/Home';
-
+import Editor from './container/Editor';
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-        <Route path="/" exact component={<Login login={false}/>} />
-        <Route path="/home" exact component={<Home/>}/>  
-        </div>      
-      </Router>
+      // <div>hi hello</div>
+      <Editor/>
+      // <Router>
+      //   <div>
+      //   <Route path="/" exact component={<Login login={false}/>} />
+      //   <Route path="/home" exact component={<Home/>}/>  
+      //   </div>      
+      // </Router>
     );
   }
 }

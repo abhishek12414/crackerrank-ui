@@ -1,0 +1,15 @@
+.Question .question {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid;
+    line-break:  normal;
+    word-break: break-all;
+    box-shadow: 1px 2px 3px rgb(128, 118, 118);
+}
+
+
+pre{
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
