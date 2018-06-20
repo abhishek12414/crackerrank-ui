@@ -1,7 +1,7 @@
 import React from 'react';
 import './Editor.css';
 
-import PageTitle from '../component/PageTitle';
+// import PageTitle from '../component/PageTitle';
 import Menu from '../component/Menu';
 import Question from '../component/Question';
 
