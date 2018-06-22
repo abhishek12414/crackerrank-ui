@@ -4,6 +4,7 @@ import Menu from '../component/Menu';
 
 
 class Login extends React.Component {
+    
     render() {
         return(
             <div className="Landing">
@@ -13,11 +14,11 @@ class Login extends React.Component {
                         Pratice Coding, Participate Events, Find Jobs
                     </div>
                     <div className="form-container">
-                        <form>
+                        <form method="POST" action="http://localhost:4001/api/v1/login">
                             <input type="text" name="username" placeholder="Username or email"/>
                             <input type="password" name="password" placeholder="Password"/>
                             <a href="/">Forget Password?</a>
-                            <input type="submit" name="submit"/>
+                            <button>Submit</button>
                         </form>
                     </div>
                 </div>

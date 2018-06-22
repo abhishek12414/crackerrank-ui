@@ -6,7 +6,7 @@ class Menu extends React.Component {
     render() {
         return(
             <div className="Menu">
-                CrackerRank 
+                CrackerRank
                 <AccountCircle className="user-icon"/>
             </div>
         );
