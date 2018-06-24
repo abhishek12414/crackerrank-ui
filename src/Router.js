@@ -1,0 +1,26 @@
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import Login from './container/Login';
+import Home from './container/Home';
+import Question from './container/QuestionAdd';
+import Editor from './container/Editor';
+import RegisterUser from './container/RegisterUser';
+import RegisterBusiness from './container/RegisterBusiness';
+import NotFound from './container/NotFound';
+
+export default () => {
+  return (
+    <BrowserRouter>
+      <div>
+        <Route exact path="/"  component={Login} />
+        <Route exact path="/home" component={Home}/> 
+        <Route exact path="/question" component={Question}/> 
+        <Route exact path="/editor"  component={Editor}/> 
+        <Route exact path="/signup/user" component={RegisterUser}/>
+        <Route exact path="/signup/business" component={RegisterBusiness}/>
+        {/* <Route exact path="/*" component={NotFound}/> */}
+      </div>
+    </BrowserRouter>
+  );
+}
