@@ -1,0 +1,42 @@
+.QuestionItem {
+    padding: 10 20px;
+    background: #fff;
+    margin: 0 10px;
+    border-bottom: 1px solid rgb(133, 126, 126);
+    font-size: 1em;
+    font-family: sans-serif;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.QuestionItem:hover {
+    background: #f0ebeb;
+}
+
+.QuestionItem p {
+    padding: 0 20px;
+    margin: 20px;
+    vertical-align: middle;
+    font-size: 1.3em;
+}
+
+.QuestionItem a {
+    text-decoration: none;
+    color: rgb(56, 54, 54);
+}
+
+.QuestionItem .info {
+    font-size: .8em;
+    color: rgb(170, 162, 162);
+}
+
+.QuestionItem .info span{
+    font-size: .8em;
+    color: rgb(62, 145, 51);
+}
+
+.QuestionItem .info span:nth-last-child(1){
+    font-weight: 500;
+    color: rgb(145, 89, 51);
+}

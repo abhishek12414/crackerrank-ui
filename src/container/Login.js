@@ -2,10 +2,10 @@ import React from 'react';
 import './Login.css';
 import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter, Link, Redirect } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
 import Alert from '../component/Alert';
-
+import BusinessHome from '../container/BusinessHome';
 
 class Login extends React.Component {
   constructor(props) {
@@ -16,7 +16,8 @@ class Login extends React.Component {
         email: '',
         password: ''
       },
-      alertMessage: ''
+      alertMessage: '',
+      userType: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -74,17 +75,27 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
+    let statusCode;
     if (this.isValid()) {
-      fetch('http://localhost:4001/api/v1/login', {
+      fetch('http://localhost:4001/api/v1/users/signin', {
         method: 'POST',
         body: JSON.stringify(this.state.login),
         headers: {
           'Content-Type': 'application/json'
         }
       }).then(response => {
+        statusCode = response.status;
+        if (statusCode === 401) {
+          return this.setState({ alertMessage: 'Invalid email or password' });
+        }
         return response.json();
       }).then(parsedJSON => {
-        console.log('parsedjson: ', parsedJSON);
+        if (statusCode === 200) {
+          localStorage.setItem('ptok', parsedJSON.token);
+          localStorage.setItem('type', parsedJSON.user.type);
+          localStorage.setItem('name', parsedJSON.user.name);
+          this.setState({ userType: parsedJSON.user.type });
+        }
       });
     }
   }
@@ -109,9 +120,8 @@ class Login extends React.Component {
         onChange={(event) => this.handleChange(event)} />
 
       <button
-        className='Form-Submit'
         onClick={this.handleSubmit}>Submit</button>
-
+      <p>OR</p>
       <div>
         <BrowserRouter >
           <Link to="/auth/login">
@@ -121,22 +131,20 @@ class Login extends React.Component {
               &nbsp;Continue with Google</button>
           </Link>
         </BrowserRouter>
-        <button
-          className='btn-facebook ripple'>
-          <SocialIcon network="facebook" color="#fff" style={{ height: 30, width: 30 }} />
-          &nbsp;Continue with Facebook</button>
-
       </div>
-      <div>
-        <p>OR</p>
-        <Link to='/signup/login'>New Account?</Link>
-      </div>
-
     </React.Fragment>;
 
     let alertSuccess = null;
     if (this.state.alertMessage) {
       alertSuccess = <Alert message={this.state.alertMessage} />;
+    }
+
+    if (this.state.userType === 'developer' || localStorage.getItem('type') === 'developer') {
+      return <Redirect to='/profile' />;
+    }
+
+    if (this.state.userType === 'business' || localStorage.getItem('type') === 'business') {
+      return <BusinessHome />;
     }
 
     return (
@@ -146,6 +154,13 @@ class Login extends React.Component {
         {alertSuccess}
         <div className='LoginForm'>
           {loginForm}
+        </div>
+        <hr />
+        <p className="P-Join">Join Now</p>
+        <div className="Grid-Center">
+          <div><Link className="Link" to='/signup/user'><button>Signup as Developer</button></Link></div>
+          <div>
+            <Link className="Link" to='/signup/business'><button>Signup as Recruiter</button></Link></div>
         </div>
       </React.Fragment>
     );

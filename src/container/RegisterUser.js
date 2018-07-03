@@ -77,8 +77,8 @@ class RegisterUser extends React.Component {
         alertMessage: errorMsg
       });
       return false;
-    } else if (!Number.isInteger(user.mobile) && user.mobile.length !== 10) {
-      errorMsg += 'Please provide 10 characters valid mobile number\n';
+    } else if (!Number.isInteger(user.mobile) && user.mobile.length != 10) {
+      errorMsg += 'Please provide 10 digit valie mobile number\n';
       this.setState({
         alertMessage: errorMsg
       });
@@ -119,9 +119,11 @@ class RegisterUser extends React.Component {
 
   handleSubmit(event) {
     if (this.isValid()) {
-      fetch('http://localhost:4001/api/v1/register', {
+      const user = this.state.user;
+      delete user.confirmPassword;
+      fetch('http://localhost:4001/api/v1/users/signup', {
         method: 'POST',
-        body: JSON.stringify(this.state.user),
+        body: JSON.stringify(user),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -132,10 +134,17 @@ class RegisterUser extends React.Component {
         response.json().then((parsedJSON => {
           console.log(statusCode);
           console.log(parsedJSON);
-          if (statusCode === 200) {
+          if (statusCode === 403) {
             this.setState({
+              user: {
+                name: '',
+                email: '',
+                mobile: '',
+                password: '',
+                confirmPassword: ''
+              },
               userRegisterd: false,
-              alertMessage: parsedJSON.msg
+              alertMessage: parsedJSON.error
             });
           }
 
@@ -205,11 +214,10 @@ class RegisterUser extends React.Component {
         onChange={(event) => this.handleChange(event)} />
 
       <button
-        className="Form-Submit"
         onClick={this.handleSubmit}>Submit</button>
       <div>
         <p>OR</p>
-        Already have an account <Link to="/">Login</Link>
+        Already have an account <Link to="/login">Login</Link>
       </div>
     </React.Fragment>;
 
@@ -231,4 +239,18 @@ class RegisterUser extends React.Component {
   }
 }
 
+// const mapStateToProps = state => {
+//   return {
+//     user: state.user
+//   };
+// };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     // onIncrementCounter: () => dispatch({type: 'INCREMENT'})
+//     // onStore: () => dispatch({type: actionTypes.REGISTER}),
+//     change: (e) => dispatch({type: actionTypes.UPDATE, target:e})
+//   }
+// }
+// export default connect(mapStateToProps, mapDispatchToProps)(Register);
 export default RegisterUser;
